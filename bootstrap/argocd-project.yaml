@@ -76,6 +76,15 @@ spec:
       kind: ManagedClusterSet
     - group: cluster.open-cluster-management.io
       kind: ManagedClusterSetBinding
+    # ACK IAM Controller resources
+    - group: iam.services.k8s.aws
+      kind: User
+    - group: iam.services.k8s.aws
+      kind: Policy
+    - group: iam.services.k8s.aws
+      kind: UserPolicyAttachment
+    - group: iam.services.k8s.aws
+      kind: AccessKey
 
   # Orphaned resources - do not delete resources when app is deleted
   orphanedResources:

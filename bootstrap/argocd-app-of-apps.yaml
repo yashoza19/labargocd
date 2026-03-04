@@ -10,7 +10,7 @@ spec:
   project: cluster-provisioning-argocd
 
   source:
-    repoURL: https://github.com/redhat-openshift-partner-labs/labargocd.git
+    repoURL: https://github.com/yashoza19/labargocd.git
     targetRevision: main
     path: clusters
     directory:
