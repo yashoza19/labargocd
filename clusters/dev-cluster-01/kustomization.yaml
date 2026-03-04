@@ -91,3 +91,13 @@ patches:
       - op: replace
         path: /metadata/name
         value: dev-cluster-01-install-config
+
+  # Fix AccessKey namespace for secret
+  - target:
+      group: iam.aws.upbound.io
+      kind: AccessKey
+      name: ocp-installer-access-key
+    patch: |-
+      - op: replace
+        path: /spec/writeConnectionSecretToRef/namespace
+        value: dev-cluster-01
