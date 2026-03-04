@@ -35,6 +35,9 @@ patches:
       - op: replace
         path: /spec/provisioning/installConfigSecretRef/name
         value: dev-cluster-01-install-config
+      - op: replace
+        path: /spec/provisioning/sshPrivateKeySecretRef/name
+        value: ssh-key
       - op: remove
         path: /spec/provisioning/manifestsConfigMapRef
 
