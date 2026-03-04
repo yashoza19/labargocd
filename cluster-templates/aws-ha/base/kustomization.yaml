@@ -23,5 +23,11 @@ labels:
       managed-by: argocd
     includeSelectors: true
 
-# Namespace for all resources (will be overridden by overlay)
+# Namespace for namespace-scoped resources only (will be overridden by overlay)
+# Note: Cluster-scoped resources (Provider, ProviderConfig, ManagedCluster)
+# should not have namespace set
 namespace: cluster-placeholder
+
+# Prevent namespace from being applied to cluster-scoped resources
+configurations:
+  - kustomizeconfig.yaml
