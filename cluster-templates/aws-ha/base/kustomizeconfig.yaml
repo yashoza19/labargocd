@@ -1,0 +1,35 @@
+# Kustomize configuration to handle cluster-scoped resources correctly
+# This prevents the namespace field from being added to cluster-scoped resources
+
+nameReference:
+- kind: Provider
+  group: pkg.crossplane.io
+  fieldSpecs:
+  - path: metadata/name
+
+- kind: ProviderConfig
+  group: aws.upbound.io
+  fieldSpecs:
+  - path: metadata/name
+
+- kind: ManagedCluster
+  group: cluster.open-cluster-management.io
+  fieldSpecs:
+  - path: metadata/name
+
+# Do not add namespace to these cluster-scoped resources
+namespace:
+- path: metadata/namespace
+  create: false
+  kind: Provider
+  group: pkg.crossplane.io
+
+- path: metadata/namespace
+  create: false
+  kind: ProviderConfig
+  group: aws.upbound.io
+
+- path: metadata/namespace
+  create: false
+  kind: ManagedCluster
+  group: cluster.open-cluster-management.io
