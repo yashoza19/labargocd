@@ -46,6 +46,15 @@ spec:
       kind: ProviderRevision
     - group: aws.upbound.io
       kind: ProviderConfig
+    # Crossplane IAM resources (cluster-scoped)
+    - group: iam.aws.upbound.io
+      kind: User
+    - group: iam.aws.upbound.io
+      kind: Policy
+    - group: iam.aws.upbound.io
+      kind: UserPolicyAttachment
+    - group: iam.aws.upbound.io
+      kind: AccessKey
 
   # Namespace resource whitelist
   namespaceResourceWhitelist:
@@ -83,15 +92,6 @@ spec:
       kind: ManagedClusterSet
     - group: cluster.open-cluster-management.io
       kind: ManagedClusterSetBinding
-    # Crossplane IAM resources (namespace-scoped)
-    - group: iam.aws.upbound.io
-      kind: User
-    - group: iam.aws.upbound.io
-      kind: Policy
-    - group: iam.aws.upbound.io
-      kind: UserPolicyAttachment
-    - group: iam.aws.upbound.io
-      kind: AccessKey
 
   # Orphaned resources - do not delete resources when app is deleted
   orphanedResources:
