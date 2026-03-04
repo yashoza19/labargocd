@@ -2,12 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  # ACK IAM controller resources (must be created first)
-  - ack/iam-user.yaml
-  - ack/iam-policy.yaml
-  - ack/iam-attachment.yaml
-  - ack/iam-access-key.yaml
-  - ack/credentials-transformer-job.yaml
+  # Crossplane resources (must be created first)
+  - crossplane/provider.yaml
+  - crossplane/iam-user.yaml
+  - crossplane/iam-policy.yaml
+  - crossplane/iam-attachment.yaml
+  - crossplane/iam-access-key.yaml
+  - crossplane/credentials-transformer-job.yaml
   # Cluster resources
   - clusterdeployment.yaml
   - machinepool-worker.yaml

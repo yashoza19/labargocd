@@ -1,0 +1,20 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws-iam
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+spec:
+  package: xpkg.upbound.io/upbound/provider-aws-iam:v1.20.0
+---
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: upbound-system
+      name: aws-credentials
+      key: credentials
