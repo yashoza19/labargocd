@@ -1,0 +1,16 @@
+---
+apiVersion: iam.services.k8s.aws/v1alpha1
+kind: UserPolicyAttachment
+metadata:
+  name: ocp-installer-policy-attachment
+  namespace: cluster-placeholder
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
+  labels:
+    app.kubernetes.io/part-of: ocp-installer
+spec:
+  policyARN: "" # Will be populated by ACK from policyRef
+  userName: ocp-installer
+  policyRef:
+    from:
+      name: openshift4-installer-policy
