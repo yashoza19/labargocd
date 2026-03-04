@@ -2,12 +2,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-provisioning-apps-argocd
+  name: cluster-provisioning-apps-argocd-test
   namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: cluster-provisioning-argocd
+  project: cluster-provisioning-argocd-test
 
   source:
     repoURL: https://github.com/yashoza19/labargocd.git
