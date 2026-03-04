@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: cluster-provisioning-argocd
+  name: cluster-provisioning-argocd-test
   namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "0"
@@ -39,6 +39,13 @@ spec:
       kind: ManagedClusterSet
     - group: cluster.open-cluster-management.io
       kind: ManagedClusterSetBinding
+    # Crossplane resources (cluster-scoped)
+    - group: pkg.crossplane.io
+      kind: Provider
+    - group: pkg.crossplane.io
+      kind: ProviderRevision
+    - group: aws.upbound.io
+      kind: ProviderConfig
 
   # Namespace resource whitelist
   namespaceResourceWhitelist:
@@ -76,6 +83,15 @@ spec:
       kind: ManagedClusterSet
     - group: cluster.open-cluster-management.io
       kind: ManagedClusterSetBinding
+    # Crossplane IAM resources (namespace-scoped)
+    - group: iam.aws.upbound.io
+      kind: User
+    - group: iam.aws.upbound.io
+      kind: Policy
+    - group: iam.aws.upbound.io
+      kind: UserPolicyAttachment
+    - group: iam.aws.upbound.io
+      kind: AccessKey
 
   # Orphaned resources - do not delete resources when app is deleted
   orphanedResources:

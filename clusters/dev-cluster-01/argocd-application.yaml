@@ -1,47 +1,35 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-provisioning-apps-argocd
+  name: dev-cluster-01
   namespace: openshift-gitops
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: cluster-provisioning-argocd-test
-
   source:
     repoURL: https://github.com/yashoza19/labargocd.git
     targetRevision: main
-    path: clusters
-    directory:
-      recurse: true
-      include: '*/argocd-application.yaml'
-
+    path: clusters/dev-cluster-01
   destination:
     server: https://kubernetes.default.svc
-    namespace: openshift-gitops
-
+    namespace: dev-cluster-01
   syncPolicy:
     automated:
-      prune: true  # Set to true to auto-delete removed clusters (use with caution!)
-      selfHeal: true
-      allowEmpty: true
+      prune: false
+      selfHeal: false  # CRITICAL: Must be false
+      allowEmpty: false
     syncOptions:
       - CreateNamespace=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m
-
-  # Ignore differences in status fields
   ignoreDifferences:
     - group: hive.openshift.io
       kind: ClusterDeployment
       jsonPointers:
         - /status
+        - /spec/clusterMetadata
+        - /spec/installed
     - group: cluster.open-cluster-management.io
       kind: ManagedCluster
       jsonPointers:
         - /status
+        - /spec/managedClusterClientConfigs
