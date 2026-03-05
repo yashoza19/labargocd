@@ -6,7 +6,7 @@ This folder contains Crossplane manifests to provision AWS IAM credentials for a
 
 | File | Kind | Name | Purpose |
 |------|------|------|---------|
-| `provider.yaml` | `Provider` + `ProviderConfig` | `provider-aws-iam` / `default` | Installs the Upbound AWS IAM provider (`v1.7.0` - compatible with Crossplane 2.2.0) and binds it to the `aws-credentials` secret in `upbound-system` namespace |
+| `provider.yaml` | `Provider` + `ProviderConfig` | `provider-aws-iam` / `default` | Installs the Upbound AWS IAM provider (`v1.7.0` - compatible with Crossplane 2.2.0) and binds it to the `aws-credentials` secret in `crossplane-system` namespace |
 | `iam-user.yaml` | `User` | `ocp-installer` | Creates an AWS IAM user for the OpenShift installer |
 | `iam-policy.yaml` | `Policy` | `OpenShift4InstallerPolicy` | IAM policy with EC2, ELB, autoscaling, IAM, S3, Route53, and service-quotas permissions required for OCP 4.20 installation |
 | `iam-attachment.yaml` | `UserPolicyAttachment` | `ocp-installer-policy-attachment` | Attaches `OpenShift4InstallerPolicy` to the `ocp-installer` user |
