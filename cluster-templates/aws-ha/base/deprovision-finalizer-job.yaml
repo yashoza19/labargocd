@@ -53,6 +53,8 @@ spec:
     spec:
       serviceAccountName: deprovision-finalizer-sa
       restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
       imagePullSecrets:
         - name: pull-secret
       containers:
