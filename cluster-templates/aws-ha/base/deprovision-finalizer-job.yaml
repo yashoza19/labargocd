@@ -60,6 +60,9 @@ spec:
       containers:
         - name: add-finalizers
           image: registry.redhat.io/openshift4/ose-cli:v4.14
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
           env:
             - name: NAMESPACE
               valueFrom:
