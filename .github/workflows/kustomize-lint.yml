@@ -1,0 +1,40 @@
+name: Kustomize Lint and Validate
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Installs Kustomize and Kubeconform
+      - name: Set up Kubernetes Tools
+        uses: redhat-openshift-partner-labs/action-setup-kube-tools@921db6a8cb155ab9c3739ce70e2ce6bceea348bf
+        with:
+          setup-tools: |
+            kustomize
+            kubeconform
+          kustomize: '5.4.1'
+          kubeconform: '0.6.7'
+
+      # Validates each Kustomization directory
+      - name: Kustomize Build & Schema Validation
+        run: |
+          find . -name 'kustomization.yaml' -not -path './.git/*' -exec dirname {} \; | while read dir; do
+            echo "Validating $dir..."
+            # 1. Structural check via build
+            # 2. Schema check via kubeconform (Targeting K8s v1.30.0)
+            kustomize build "$dir" | kubeconform \
+              -strict \
+              -ignore-missing-schemas \
+              -kubernetes-version 1.30.0 \
+              -summary
+          done
+
+      - name: KubeLinter Scan
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: .
