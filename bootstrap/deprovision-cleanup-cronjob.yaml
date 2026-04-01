@@ -56,9 +56,21 @@ spec:
         spec:
           serviceAccountName: deprovision-cleanup-sa
           restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
           containers:
             - name: cleanup
               image: registry.redhat.io/openshift4/ose-cli:v4.14
+              securityContext:
+                readOnlyRootFilesystem: true
+                allowPrivilegeEscalation: false
+              resources:
+                requests:
+                  cpu: "50m"
+                  memory: "64Mi"
+                limits:
+                  cpu: "200m"
+                  memory: "256Mi"
               env:
                 - name: FINALIZER
                   value: "openshiftpartnerlabs.com/deprovision"
